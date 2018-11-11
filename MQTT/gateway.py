@@ -53,7 +53,7 @@ def unlocked():
 
     
 def ativado():
-    mqttc.publish("alarme", "Acionado")
+    mqttc.publish("alarme", "Ativado")
     print('Trava')
     
     

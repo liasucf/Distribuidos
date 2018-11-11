@@ -50,7 +50,6 @@ def main():
 	image = image.resize((120, 150), Image.ANTIALIAS)
 	leitor = ImageTk.PhotoImage(image,master = root)    
 	valor_alarme = ttk.Label(frame4,text='',image = leitor, compound='center')
-    #abaixarSom_button['command'] = lambda: VolumeSom()
 	valor_alarme.grid(row=1, column=0)
 
 	
