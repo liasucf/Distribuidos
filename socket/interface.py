@@ -30,9 +30,6 @@ def socket_cliente(mensagem):
 	socket_cliente_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	#link do socket com o endereço de destino
 	socket_cliente_tcp.connect(destiny)
-
-	sleep(0.01)
-	socket_cliente_tcp.send('ignore-me'.encode('utf-8'))
 	#o socket envia a mensagem para o servidor tcp codificado com UTF-8
 	sleep(0.01)
 	socket_cliente_tcp.send(mensagem.encode('utf-8'))
@@ -112,16 +109,14 @@ def diminui_temp():
 #definindo função de aumentar volume
 def aumenta_som():
 	mensagem = 'aumentar som'	
-	socket_cliente(mensagem)	
-	
-	
+	socket_cliente(mensagem)		
 
 
 #__________________________________________________________________________________________________________________________
 #definindo função diminuir volume
 def diminui_som():
-    mensagem = 'diminuir som'	
-    socket_cliente(mensagem)
+	mensagem ='diminuir som'	
+	socket_cliente(mensagem)
 	
 	
 

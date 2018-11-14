@@ -16,11 +16,14 @@ destiny1 = (adress, port1)
 #link do socket ao destiny
 socket_servidor_tcp.bind(destiny1)
 
+global vol, temp
 
+vol = 30
+temp = 30
 
 def novo_cliente(clientsocket, addr, conexao):
-  vol = 30
-  temp = 30
+  global vol, temp
+
   status_lampada = "desligada"
   #while True:
   mensagem = clientsocket.recv(2000).decode('utf-8')
@@ -58,20 +61,25 @@ def novo_cliente(clientsocket, addr, conexao):
     print("status do portao:",status_alarme)
     conexao['alarme'].send('desativando alarme'.encode())
 # Parte do som
-  
-    if mensagem.startswith('som: '):
-      print("comando recebido som")
-      print("volume:",vol)
-      conexao['som'].send(str(vol).encode())
+  elif mensagem == "aumentar som":
+    vol = vol + 1
+    print("comando recebido som")
+    print("volume:",vol)
+    conexao['som'].send(str(vol).encode())
+  elif mensagem == "diminuir som":
+    vol = vol - 1
+    print("comando recebido som")
+    print("volume:",vol)
+    conexao['som'].send(str(vol).encode())
 # Parte da temperatura
   elif mensagem == "aumentar temperatura":
     for x in range(0,6):
       temp = temp + 1
-      mensagem = str(temp)
-      socket_cliente(mensagem)
-		#Apos 3 segundos aumenta a temperatura
-      for contagem in range(0,3):
-        sleep(1)
+    mensagem = str(temp)
+    socket_cliente(mensagem)
+    #Apos 3 segundos aumenta a temperatura
+    for contagem in range(0,3):
+      sleep(1)
     
     print("comando recebido temperatura")
     print("temperatura: ",mensagem)
@@ -79,16 +87,15 @@ def novo_cliente(clientsocket, addr, conexao):
   elif mensagem == "diminuir temperatura":
     for x in range(0,6):
       temp = temp - 1
-      mensagem = str(temp)
-      socket_cliente(mensagem)
-		#Apos 3 segundos aumenta a temperatura
-      for contagem in range(0,3):
-        sleep(1)
+    mensagem = str(temp)
+    socket_cliente(mensagem)
+    #Apos 3 segundos aumenta a temperatura
+    for contagem in range(0,3):
+      sleep(1)
     
     print("comando recebido temperatura")
     print("temperatura: ",mensagem)
     conexao['temperatura'].send(str(vol).encode())
-  
   print ('conectado com ', addr)
   print (addr, ' >> ', mensagem)
 
